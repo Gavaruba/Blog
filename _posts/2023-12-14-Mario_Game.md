@@ -7,9 +7,21 @@ courses: { csse: {week: 14}, csp: {week: 14}, csa: {week: 14} }
 image: /images/platformer/backgrounds/hills.png
 ---
 <style>
-    #gameBegin, #controls, #gameOver {
+    #gameBegin, #controls, #gameOver #settings {
         position: relative;
         z-index: 2; /*Ensure the controls are on top*/
+    }
+    .sidenav {
+      position: fixed;
+      height: 100%; /* 100% Full-height */
+      width: 0px; /* 0 width - change this with JavaScript */
+      z-index: 3; /* Stay on top */
+      top: 0; /* Stay at the top */
+      left: 0;
+      overflow-x: hidden; /* Disable horizontal scroll */
+      padding-top: 60px; /* Place content 60px from the top */
+      transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+      background-color: black; 
     }
 </style>
 <!-- Load the YouTube Iframe API script -->
@@ -17,21 +29,40 @@ image: /images/platformer/backgrounds/hills.png
 <!-- Prepare DOM elements -->
 <!-- Wrap both the canvas and controls in a container div -->
 <div id="canvasContainer">
-    <!-- Add this div to contain the YouTube video player -->
+<!-- Add this div to contain the YouTube video player -->
     <div id="youtubePlayer"></div>
     <div id="gameBegin" hidden>
         <button id="startGame">Start Game</button>
     </div>
-    <div id="controls"> <!-- Controls -->
+    <div id="settings"> <!-- Controls -->
         <!-- Background controls -->
-        <button id="toggleCanvasEffect">Invert</button>
+        <button id="toggleSettingsBar">Settings</button>
     </div>
     <div id="gameOver" hidden>
         <button id="restartGame">Restart</button>
     </div>
 </div>
-<script type="module">
+<!-- Load the YouTube Iframe API script -->
+<!-- <script async src="https://www.youtube.com/iframe_api"></script> -->
+<!-- Prepare DOM elements -->
+<!-- Wrap both the canvas and controls in a container div -->
+<!--<div id="canvasContainer">-->
+    <!-- Add this div to contain the YouTube video player -->
+    <!--<div id="youtubePlayer"></div> -->
+   <!-- <div id="gameBegin" hidden> -->
+   <!--  <button id="startGame">Start Game</button> -->
+  <!--  </div> -->
+   <!-- <div id="controls"> --> <!-- Controls -->
+        <!-- Background controls -->
+      <!--  <button id="toggleCanvasEffect">Invert</button> 
+    </div>
+    <div id="gameOver" hidden>
+        <button id="restartGame">Restart</button>
+    </div>
+</div> -->
+<script type="module"> 
     // Imports
+    import Controller from '/MiniProject/assets/js/platformer/Controller.js';
     import GameEnv from '{{site.baseurl}}/assets/js/platformer/GameEnv.js';
     import GameLevel from '{{site.baseurl}}/assets/js/platformer/GameLevel.js';
     import GameControl from '{{site.baseurl}}/assets/js/platformer/GameControl.js';
@@ -220,6 +251,17 @@ window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
     window.addEventListener('resize', GameEnv.resize);
     // start game
     GameControl.gameLoop();
+    var myController = new Controller();
+      myController.initialize();
+    var table = myController.levelTable;
+document.getElementById("mySidebar").append(table);
+var toggle = false;
+  function toggleWidth(){
+    toggle = !toggle;
+    document.getElementById("mySidebar").style.width = toggle?"250px":"0px";
+  }
+  document.getElementById("toggleSettingsBar").addEventListener("click",toggleWidth);
+  document.getElementById("toggleSettingsBar1").addEventListener("click",toggleWidth);
 </script>
 
 

@@ -16,7 +16,7 @@ class Character extends GameObject {
         this.gravityEnabled = true;
     }
     getMinFrame(){
-        return this.manFrame;
+        return this.minFrame;
     }
     setMinFrame(minFrame){
         this.minFrame = minFrame;

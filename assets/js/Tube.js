@@ -1,10 +1,11 @@
+
 import GameEnv from './GameEnv.js';
 import GameObject from './GameObject.js';
 export class Tube extends GameObject {
     constructor(canvas, image) {
         super(canvas, image, 0);
     }
-    // Required, but no update action
+        // Required, but no update action
     update() {
     }
     // Draw position is always 0,0
