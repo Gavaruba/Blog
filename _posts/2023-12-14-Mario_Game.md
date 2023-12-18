@@ -1,6 +1,6 @@
 ---
 layout: base
-title: Dynamic Game Levels
+title: Mario game
 description: Early steps in adding levels to an OOP Game. This includes basic animations left-right-jump, multiple backgrounds, and simple callback to terminate each level.
 type: ccc
 courses: { csse: {week: 14}, csp: {week: 14}, csa: {week: 14} }
@@ -29,36 +29,7 @@ image: /images/platformer/backgrounds/hills.png
 <!-- Prepare DOM elements -->
 <!-- Wrap both the canvas and controls in a container div -->
 <div id="canvasContainer">
-<!-- Add this div to contain the YouTube video player -->
-    <div id="youtubePlayer"></div>
-    <div id="gameBegin" hidden>
-        <button id="startGame">Start Game</button>
-    </div>
-    <div id="settings"> <!-- Controls -->
-        <!-- Background controls -->
-        <button id="toggleSettingsBar">Settings</button>
-    </div>
-    <div id="gameOver" hidden>
-        <button id="restartGame">Restart</button>
-    </div>
-</div>
-<!-- Load the YouTube Iframe API script -->
-<!-- <script async src="https://www.youtube.com/iframe_api"></script> -->
-<!-- Prepare DOM elements -->
-<!-- Wrap both the canvas and controls in a container div -->
-<!--<div id="canvasContainer">-->
-    <!-- Add this div to contain the YouTube video player -->
-    <!--<div id="youtubePlayer"></div> -->
-   <!-- <div id="gameBegin" hidden> -->
-   <!--  <button id="startGame">Start Game</button> -->
-  <!--  </div> -->
-   <!-- <div id="controls"> --> <!-- Controls -->
-        <!-- Background controls -->
-      <!--  <button id="toggleCanvasEffect">Invert</button> 
-    </div>
-    <div id="gameOver" hidden>
-        <button id="restartGame">Restart</button>
-    </div>
+</div> 
 </div> -->
 <script type="module"> 
     // Imports
