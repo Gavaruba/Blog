@@ -24,13 +24,24 @@ image: /images/platformer/backgrounds/hills.png
       background-color: black; 
     }
 </style>
-<!-- Load the YouTube Iframe API script -->
-<script async src="https://www.youtube.com/iframe_api"></script>
 <!-- Prepare DOM elements -->
 <!-- Wrap both the canvas and controls in a container div -->
 <div id="canvasContainer">
+<button id="leaderboardButton">Leaderboard</button>
+  <div id="gameBegin" hidden>
+        <button id="startGame">Start Game</button>
+    </div>
+    <div id="controls"> <!-- Controls -->
+        <!-- Background controls -->
+        <button id="toggleCanvasEffect">Invert</button>
+    </div>
+    <div id="gameOver" hidden>
+        <button id="restartGame">Restart</button>
+    </div>
+    <div id="score" style="position: absolute; top: 75px; left: 10px; color: black; font-size: 20px; background-color: white;">
+   Time: <span id="timeScore">0</span>
+</div>
 </div> 
-</div> -->
 <script type="module"> 
     // Imports
     import Controller from '/MiniProject/assets/js/platformer/Controller.js';
@@ -115,6 +126,57 @@ image: /images/platformer/backgrounds/hills.png
         assets[category][assetName]['file'] = "{{site.baseurl}}" + assets[category][assetName].src;
       });
     });
+    // we put this in the oop file after our assets
+// Function to switch to the leaderboard screen
+function showLeaderboard() {
+    const id = document.getElementById("gameOver");
+    id.hidden = false;
+    // Hide game canvas and controls
+    document.getElementById('canvasContainer').style.display = 'none';
+    document.getElementById('controls').style.display = 'none';
+  // Create and display leaderboard section
+  const leaderboardSection = document.createElement('div');
+  leaderboardSection.id = 'leaderboardSection';
+  leaderboardSection.innerHTML = '<h1 style="text-align: center; font-size: 18px;">Leaderboard </h1>';
+  document.querySelector(".page-content").appendChild(leaderboardSection)
+  // document.body.appendChild(leaderboardSection);
+  const playerScores = localStorage.getItem("playerScores")
+  const playerScoresArray = playerScores.split(";")
+  const scoresObj = {}
+  const scoresArr = []
+  for(let i = 0; i< playerScoresArray.length-1; i++){
+    const temp = playerScoresArray[i].split(",")
+    scoresObj[temp[0]] = parseInt(temp[1])
+    scoresArr.push(parseInt(temp[1]))
+  }
+  scoresArr.sort()
+  const finalScoresArr = []
+  for (let i = 0; i<scoresArr.length; i++) {
+    for (const [key, value] of Object.entries(scoresObj)) {
+      if (scoresArr[i] ==value) {
+        finalScoresArr.push(key + "," + value)
+        break;
+      }
+    }
+  }
+  let rankScore = 1;
+  for (let i =0; i<finalScoresArr.length; i++) {
+    const rank = document.createElement('div');
+    rank.id = `rankScore${rankScore}`;
+    rank.innerHTML = `<h2 style="text-align: center; font-size: 18px;">${finalScoresArr[i]} </h2>`;
+    document.querySelector(".page-content").appendChild(rank)    
+  }
+}
+//rest of the code here
+// Event listener for leaderboard button to be clicked
+document.getElementById('leaderboardButton').addEventListener('click', showLeaderboard);
+  // add File to assets, ensure valid site.baseurl
+  Object.keys(assets).forEach(category => {
+    Object.keys(assets[category]).forEach(assetName => {
+      assets[category][assetName]['file'] = "{{site.baseurl}}" + assets[category][assetName].src;
+    });
+  });
+  //this should be above the game level callbacks
     /*  ==========================================
      *  ===== Game Level Call Backs ==============
      *  ==========================================
@@ -143,10 +205,6 @@ image: /images/platformer/backgrounds/hills.png
     async function startGameCallback() {
       const id = document.getElementById("gameBegin");
       id.hidden = false;
-      // Start playing the YouTube video
-      if (youtubePlayer) {
-          youtubePlayer.playVideo();
-      }
       // Use waitForRestart to wait for the restart button click
       await waitForButton('startGame');
       id.hidden = true;
@@ -160,15 +218,29 @@ image: /images/platformer/backgrounds/hills.png
     }
     // Game Over callback
     async function gameOverCallBack() {
-      const id = document.getElementById("gameOver");
-      id.hidden = false;
-      // Use waitForRestart to wait for the restart button click
-      await waitForButton('restartGame');
-      id.hidden = true;
-      // Change currentLevel to start/restart value of null
-      GameEnv.currentLevel = null;
-      return true;
-    }
+    const id = document.getElementById("gameOver");
+    id.hidden = false;
+    // Store whether the game over screen has been shown before
+    const gameOverScreenShown = localStorage.getItem("gameOverScreenShown");
+    // Check if the game over screen has been shown before
+    if (!gameOverScreenShown) {
+      const playerScore = document.getElementById("timeScore").innerHTML;
+      const playerName = prompt(`You scored ${playerScore}! What is your name?`);
+      let temp = localStorage.getItem("playerScores");
+      temp += playerName + "," + playerScore.toString() + ";";
+      localStorage.setItem("playerScores", temp);
+      // Set a flag in local storage to indicate that the game over screen has been shown
+      localStorage.setItem("gameOverScreenShown", "true");
+  }
+  // Use waitForRestart to wait for the restart button click
+    await waitForButton('restartGame');
+    id.hidden = true;
+    // Change currentLevel to start/restart value of null
+    GameEnv.currentLevel = null;
+    // Reset the flag so that the game over screen can be shown again on the next game over
+    localStorage.removeItem("gameOverScreenShown");
+    return true;
+  }
     /*  ==========================================
      *  ========== Game Level setup ==============
      *  ==========================================
@@ -189,34 +261,6 @@ image: /images/platformer/backgrounds/hills.png
      *  ========== Game Control ==================
      *  ==========================================
     */
-    // Define the YouTube video ID
-const youtubeVideoId = 'KCiVG6mTor0';
-// Initialize the YouTube video player
-let youtubePlayer;
-function onYouTubeIframeAPIReady() {
-    youtubePlayer = new YT.Player('youtubePlayer', {
-        height: '0',
-        width: '0',
-        videoId: youtubeVideoId,
-        playerVars: {
-            autoplay: 1,
-            loop: 1,
-            controls: 0,
-            showinfo: 0,
-            mute: 0,
-        },
-        events: {
-            onReady: onPlayerReady
-        }
-    });
-}
-// Callback function when the YouTube player is ready
-function onPlayerReady(event) {
-    // Uncomment the following line if you want the video to start playing immediately
-    event.target.playVideo();
-}
-// Add the onYouTubeIframeAPIReady function to the global scope
-window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
     // create listeners
     toggleCanvasEffect.addEventListener('click', GameEnv.toggleInvert);
     window.addEventListener('resize', GameEnv.resize);

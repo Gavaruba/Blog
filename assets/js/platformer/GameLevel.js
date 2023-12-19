@@ -11,6 +11,7 @@ import Coin from './Coin.js'
 class GameLevel {
     constructor(gameObject) {
         // conditional assignments from GameObject to instance variables
+        new GameLevel( {tag: "hills", background: assets.backgrounds.hills, background2: assets.backgrounds.mountains, platform: asset})
         this.tag = gameObject?.tag;
         this.backgroundImg = gameObject.background?.file;
         this.platformImg = gameObject.platform?.file;
@@ -24,10 +25,14 @@ class GameLevel {
         this.isComplete = gameObject?.callback; // function that determines if level is complete
         GameEnv.levels.push(this);
     }
+    this.backgroundImg2 = gameObject.background2?.file;
     // Load level data
     async load() {
         // test for presence of Images
         const imagesToLoad = [];
+        if (this.backgroundImg2) {
+            imagesToLoad.push(this.loadImage(this.backgroundImg2));
+        }
         if (this.backgroundImg) {
             imagesToLoad.push(this.loadImage(this.backgroundImg));
         }
