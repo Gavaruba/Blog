@@ -256,6 +256,14 @@ export class Player extends Character{
     }
     // Event listener key down
     handleKeyDown(event) {
+        if (key === "a") {
+            GameEnv.backgroundSpeed = -0.4;
+            GameEnv.backgroundSpeed2 = -0.1;
+        }
+        if (key === "d") {
+            GameEnv.backgroundSpeed = 0.4;
+            GameEnv.backgroundSpeed2 = 0.1;
+        }
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (!(event.key in this.pressedKeys)) {
@@ -268,6 +276,14 @@ export class Player extends Character{
     }
     // Event listener key up
     handleKeyUp(event) {
+        if (key === "a") {
+            GameEnv.backgroundSpeed = 0;
+            GameEnv.backgroundSpeed2 = 0;
+        }
+        if (key === "d") {
+            GameEnv.backgroundSpeed = 0;
+            GameEnv.backgroundSpeed2 = 0;
+        }
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (event.key in this.pressedKeys) {

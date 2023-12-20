@@ -21,8 +21,30 @@ image: /images/platformer/backgrounds/hills.png
       overflow-x: hidden; /* Disable horizontal scroll */
       padding-top: 60px; /* Place content 60px from the top */
       transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-      background-color: black; 
+      background-color: black;
+    } 
+    #toggleCanvasEffect, #background, #platform {
+    animation: fadein 5s;
     }
+  #startGame {
+    animation: flash 0.5s infinite;
+  }
+
+  @keyframes flash {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeout {
+    from {opacity: 1}
+    to {opacity: 0}
+  }
+
+  @keyframes fadein {
+    from {opacity: 0}
+    to {opacity: 1}
+  }
 </style>
 <!-- Prepare DOM elements -->
 <!-- Wrap both the canvas and controls in a container div -->
@@ -70,6 +92,7 @@ image: /images/platformer/backgrounds/hills.png
       backgrounds: {
         start: { src: "/images/platformer/backgrounds/home.png" },
         hills: { src: "/images/platformer/backgrounds/hills.png" },
+        mountains: { src: "/images/platformer/backgrounds/mountains.png"}
         planet: { src: "/images/platformer/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
         end: { src: "/images/platformer/backgrounds/game_over.png" }
@@ -253,7 +276,8 @@ document.getElementById('leaderboardButton').addEventListener('click', showLeade
     new GameLevel( {tag: "start", callback: startGameCallback } );
     new GameLevel( {tag: "home", background: assets.backgrounds.start, callback: homeScreenCallback } );
     // Game screens
-    new GameLevel( {tag: "hills", background: assets.backgrounds.hills, platform: assets.platforms.grass, jumpPlatform: assets.jumpPlatforms.brick, coin: assets.coins.gold_coin, player: assets.players.mario, enemy: assets.enemies.goomba, tube: assets.obstacles.tube, callback: testerCallBack } );
+    new GameLevel( {tag: "hills", background: assets.backgrounds.hills,    background2: assets.backgrounds.mountains,
+      platform: assets.platforms.grass, jumpPlatform: assets.jumpPlatforms.brick, coin: assets.coins.gold_coin, player: assets.players.mario, enemy: assets.enemies.goomba, tube: assets.obstacles.tube, callback: testerCallBack } );
     new GameLevel( {tag: "alien", background: assets.backgrounds.planet, platform: assets.platforms.alien, player: assets.players.monkey, callback: testerCallBack } );
     // Game Over screen
     new GameLevel( {tag: "end", background: assets.backgrounds.end, callback: gameOverCallBack } );
