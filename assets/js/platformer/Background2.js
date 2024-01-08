@@ -46,5 +46,5 @@ export class background2 extends GameObject {
         GameEnv.setBottom();
     }
 }
-export default Background;
+export default background2;
 
