@@ -72,4 +72,4 @@ export class Enemy extends Character {
         }, 50);
     } */
 }
-export default Enemy
+export default Enemy;

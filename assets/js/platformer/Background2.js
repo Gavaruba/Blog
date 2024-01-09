@@ -1,7 +1,7 @@
 
 import GameEnv from './GameEnv.js';
 import GameObject from './GameObject.js';
-export class background2 extends GameObject {
+export class Background2 extends GameObject {
     constructor(canvas, image, speedRatio) {
         super(canvas, image, speedRatio);
         this.x = -1000;
@@ -46,5 +46,5 @@ export class background2 extends GameObject {
         GameEnv.setBottom();
     }
 }
-export default background2;
+export default Background2;
 
