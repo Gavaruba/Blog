@@ -9,15 +9,13 @@ courses: { csse: {week: 1}, csp: {week: 1, categories: [4.A]}, csa: {week: 0} }
 categories: [C1.4]
 ---
 
-### Mario RPG Elements Plan
+### Mario Final 1.0
+Enemies	-----------------------	.55 -----  None -----
+Elevated Platforms-------------	.55 -----  None -----
+Parallax-----------------------	.55	-----  None -----
+Lopez Level--------------------	.55	-----  None -----
+Sidebar and Local storage------	.55	-----  None -----   https://docs.google.com/spreadsheets/d/1SplYa23Q1ECXNGrIYgHG5On2FehvnWJ0G3hft9iyCdk/edit#gid=0	
+Timer and Leaderboard----------	.70 -----  None ----- https://docs.google.com/spreadsheets/d/1fxwQWhXCeIv0jlIxtyl1p5fNH20KWZzyAu8Z-owP3MY/edit?usp=sharing		
+Dash and Animation------------- N/A -----  N/A  -----
 
-- Monday: Today I worked on getting a function running in GameObject.js that will change the players movement properties. I spent most of last week trying to learn how the code was formatted and how to change different aspects of the game. The function still needs work to be operational.
-
-- Tuesday:
-
-- Wednesday:
-
-- Thursday:
-
-- Friday:
 
