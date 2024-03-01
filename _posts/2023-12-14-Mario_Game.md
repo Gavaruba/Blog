@@ -66,7 +66,7 @@ image: /images/platformer/backgrounds/hills.png
 </div> 
 <script type="module"> 
     // Imports
-    import Controller from '/MiniProject/assets/js/platformer/Controller.js';
+    import Controller from 'Blog/assets/js/platformer/Controller.js';
     import GameEnv from '{{site.baseurl}}/assets/js/platformer/GameEnv.js';
     import GameLevel from '{{site.baseurl}}/assets/js/platformer/GameLevel.js';
     import GameControl from '{{site.baseurl}}/assets/js/platformer/GameControl.js';
