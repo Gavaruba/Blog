@@ -7,6 +7,7 @@ import Tube from './Tube.js';
 import Enemy from './Enemy.js';
 import JumpPlatform from './JumpPlatform.js';
 import Coin from './Coin.js'
+import MichaelJackson from './MichaelJackson.js';
 // Store the assets and attributes of the Game at the specific GameLevel.
 class GameLevel {
     constructor(gameObject) {
@@ -52,6 +53,9 @@ class GameLevel {
         }
         if (this.tubeImg) {
             imagesToLoad.push(this.loadImage(this.tubeImg));
+        }
+        if (this.MichaelJacksonImg) {
+            imagesToLoad.push(this.loadImage(this.MichaelJacksonImg));
         }
         try {
             // Do not proceed until images are loaded
@@ -116,6 +120,14 @@ class GameLevel {
                 document.querySelector("#canvasContainer").appendChild(enemyCanvas);
                 const enemySpeedRatio = 0.7;
                 new Enemy(enemyCanvas, loadedImages[i], enemySpeedRatio, this.enemyData);
+                i++;
+            }
+            if (this.MichaelJacksonImgImg) {
+                const enemyCanvas = document.createElement("canvas");
+                MichaelJacksonCanvas.id = "MichaelJackson"
+                document.querySelector("#canvasContainer").appendChild(enemyCanvas);
+                const MichaelJacksonSpeedRatio = 0.7;
+                new MichaelJackson(MichaelJacksonCanvas, loadedImages[i], MichaelJacksonSpeedRatio, this.MichaelJacksonData);
                 i++;
             }
             // Prepare HTML with Player Canvas (if playerImg is defined)
